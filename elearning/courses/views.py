@@ -7,7 +7,6 @@ from courses.forms import CourseForm
 
 
 def course_detail(request, course_id):
-    print(Course.objects.all())
     course = Course.objects.get(id=course_id)
     return render(request, 'course_detail.html', {
             'course': course,
