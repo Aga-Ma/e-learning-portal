@@ -28,6 +28,9 @@ class Section(models.Model):
     def __str__(self):
         return self.title
 
+    def get_test_url(self):
+        return reverse('do_test', args=(self.id,))
+
 
 class Question(models.Model):
     section = models.ForeignKey(Section)
