@@ -3,5 +3,10 @@
 <ol>
 {% for course in courses %}
 <li>{{ course.name }}</li>
+    <ul>
+    {% for student in course.students.all %}
+    <li>{{ student }}</li>
+    {% endfor %}
+    </ul>
 {% endfor %}
 </ol>
