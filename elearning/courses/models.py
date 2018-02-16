@@ -1,4 +1,5 @@
 from django.core.urlresolvers import reverse
+from django.conf import settings
 from django.db import models
 
 from students.models import User
@@ -30,16 +31,25 @@ class Section(models.Model):
 
 class Question(models.Model):
     section = models.ForeignKey(Section)
-    text = models.CharField(max_lenght=1000)
+    text = models.CharField(max_length=1000)
 
     def __str__(self):
         return self.text
 
-    
+
 class Answer(models.Model):
     question = models.ForeignKey(Question)
-    text = models.CharField(max_lenght=1000)
+    text = models.CharField(max_length=1000)
     correct = models.BooleanField()
 
     def __str__(self):
         return self.text
+
+
+class UserAnswer(models.Model):
+    question = models.ForeignKey(Question)
+    answer = models.ForeignKey(Answer)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+
+    class Meta:
+        unique_together = ('question', 'user', )
