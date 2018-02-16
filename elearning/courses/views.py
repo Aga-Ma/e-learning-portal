@@ -67,3 +67,23 @@ def do_test(request, section_id):
     return render(request, 'courses/do_test.html', {
         'section': section,
     })
+
+
+def calculate_score(user, section):
+    questions = Question.objects.filter(section=section)
+    correct_answers = UserAnswer.objects.filter(
+        user=user,
+        question__section=section,
+        answer__correct=True
+    )
+    return (correct_answers.count() / questions.count()) * 100
+
+
+def show_results(request, section_id):
+    if not request.user.is_authenticated():
+        raise PermissionDenied
+    section = Section.objects.get(id=section_id)
+    return render(request, 'courses/show_results.html', {
+        'section': section,
+        'score': calculate_score(request.user, section)
+    })
