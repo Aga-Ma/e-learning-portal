@@ -28,6 +28,13 @@ class Section(models.Model):
     def __str__(self):
         return self.title
 
+    def get_test_url(self):
+        return reverse('do_test', args=(self.id,))
+
+    def get_next_section_url(self):
+        next_section = Section.objects.get(number=self.number+1)
+        return reverse('do_section', args=(next_section.id,))
+
 
 class Question(models.Model):
     section = models.ForeignKey(Section)

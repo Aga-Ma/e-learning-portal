@@ -1,0 +1,18 @@
+<p>Test for section {{ section.number }}: {{ section.title }} </p>
+
+<hr />
+
+<form action="" method="POST">
+{% csrf_token %}
+{% for question in section.question_set.all %}
+<p><strong>{{ question.text }}</strong></p>
+    <ul>
+    {% for answer in question.answer_set.all %}
+    <li>
+        <input type="radio" name="question-{{ question.id }}" value="{{ answer.id }}">{{ answer }}</input>
+    </li>
+    {% endfor %}
+    </ul>
+{% endfor %}
+<input type="submit" value="Submit">
+</form>
