@@ -16,8 +16,16 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
+from rest_framework import routers
+
 from students.views import student_detail
 from courses.views import course_detail, course_list, course_add, do_section, do_test, show_results
+from api.views import UserViewSet
+
+
+router = routers.DefaultRouter()
+router.register(r'users', UserViewSet)
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -30,5 +38,6 @@ urlpatterns = [
     url(r'^section/(?P<section_id>\d+)/results/$', show_results, name='show_results'),
     url(r'^student_detail/$', student_detail,
         name='student_detail'),
+    url(r'^api/', include(router.urls)),
     url(r'^$', course_list),
 ]
