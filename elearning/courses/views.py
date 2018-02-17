@@ -1,19 +1,26 @@
 from django.core.exceptions import PermissionDenied, SuspiciousOperation
-from django.db import transaction
 from django.core.urlresolvers import reverse
-from django.shortcuts import render, redirect
+from django.db import transaction
 from django.http import HttpResponseRedirect
-
+from django.views.generic import DetailView, CreateView, ListView
+from django.shortcuts import render, redirect
 
 from courses.models import Course, UserAnswer, Section, Question
 from courses.forms import CourseForm
 
 
-def course_detail(request, course_id):
-    course = Course.objects.get(id=course_id)
-    return render(request, 'courses/course_detail.html', {
-            'course': course,
-        })
+# def course_detail(request, course_id):
+#     course = Course.objects.get(id=course_id)
+#     return render(request, 'courses/course_detail.html', {
+#         'course': course,
+#     })
+
+
+class CourseDetailView(DetailView):
+    model = Course
+
+
+course_detail = CourseDetailView.as_view()
 
 
 def course_list(request):
@@ -62,7 +69,7 @@ def do_test(request, section_id):
                     raise SuspiciousOperation('Answer is not valid for this question')
                 UserAnswer.objects.create(user=request.user,
                                           question=question,
-                                          answer_id=answer_id,)
+                                          answer_id=answer_id, )
         return redirect(reverse('show_results', args=(section.id,)))
     return render(request, 'courses/do_test.html', {
         'section': section,
