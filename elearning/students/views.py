@@ -1,10 +1,11 @@
+from django.core.exceptions import PermissionDenied
 from django.shortcuts import render
 
-from students.models import User
 
-
-def student_detail(request, student_id):
-    student = User.objects.get(id=student_id)
+def student_detail(request):
+    if not request.user.is_authenticated():
+        raise PermissionDenied
+    student = request.user
     return render(request, 'students/student_detail.html', {
         'student': student,
     })
