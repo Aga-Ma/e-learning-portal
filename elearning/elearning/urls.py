@@ -28,7 +28,7 @@ urlpatterns = [
     url(r'^section/(?P<section_id>\d+)/$', do_section, name='do_section'),
     url(r'^section/(?P<section_id>\d+)/test/$', do_test, name='do_test'),
     url(r'^section/(?P<section_id>\d+)/results/$', show_results, name='show_results'),
-    url(r'^student_detail/(?P<student_id>\d+)/$', student_detail,
+    url(r'^student_detail/$', student_detail,
         name='student_detail'),
     url(r'^$', course_list),
 ]
