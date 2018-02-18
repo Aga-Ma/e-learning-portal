@@ -19,12 +19,13 @@ from django.contrib import admin
 from rest_framework import routers
 
 from students.views import student_detail
-from courses.views import course_detail, course_list, course_add, do_section, do_test, show_results
+from courses.views import course_detail, course_list, course_add, do_section, do_test, show_results, SectionViewSet
 from api.views import UserViewSet
 
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
+router.register(r'sections', SectionViewSet)
 
 
 urlpatterns = [
