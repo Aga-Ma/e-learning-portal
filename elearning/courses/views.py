@@ -1,39 +1,35 @@
 from django.core.exceptions import PermissionDenied, SuspiciousOperation
-from django.db import transaction
 from django.core.urlresolvers import reverse
-from django.shortcuts import render, redirect
+from django.db import transaction
 from django.http import HttpResponseRedirect
-
+from django.views.generic import DetailView, CreateView, ListView
+from django.shortcuts import render, redirect
 
 from courses.models import Course, UserAnswer, Section, Question
 from courses.forms import CourseForm
 
 
-def course_detail(request, course_id):
-    course = Course.objects.get(id=course_id)
-    return render(request, 'courses/course_detail.html', {
-            'course': course,
-        })
+class CourseDetailView(DetailView):
+    model = Course
 
 
-def course_list(request):
-    courses = Course.objects.prefetch_related('students')
-    return render(request, 'courses/course_list.html', {
-        'courses': courses,
-    })
+course_detail = CourseDetailView.as_view()
 
 
-def course_add(request):
-    if request.POST:
-        form = CourseForm(request.POST)
-        if form.is_valid():
-            new_course = form.save()
-            return HttpResponseRedirect(new_course.get_absolute_url())
-    else:
-        form = CourseForm()
-    return render(request, 'courses/course_form.html', {
-        'form': form,
-    })
+class CourseListView(ListView):
+    model = Course
+    queryset = Course.objects.prefetch_related('students')
+
+
+course_list = CourseListView.as_view()
+
+
+class CourseAddView(CreateView):
+    model = Course
+    fields = '__all__'
+
+
+course_add = CourseAddView.as_view()
 
 
 def do_section(request, section_id):
@@ -62,7 +58,7 @@ def do_test(request, section_id):
                     raise SuspiciousOperation('Answer is not valid for this question')
                 UserAnswer.objects.create(user=request.user,
                                           question=question,
-                                          answer_id=answer_id,)
+                                          answer_id=answer_id, )
         return redirect(reverse('show_results', args=(section.id,)))
     return render(request, 'courses/do_test.html', {
         'section': section,

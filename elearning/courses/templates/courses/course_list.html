@@ -6,7 +6,7 @@
         <div class="col-xs-12">
             <h1> Course list </h1>
             <ol>
-                {% for course in courses %}
+                {% for course in course_list %}
                 <li><a href="{{ course.get_absolute_url }}">{{ course.name }}</a></li>
                 <ul>
                     {% for student in course.students.all %}
