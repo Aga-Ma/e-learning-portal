@@ -7,6 +7,10 @@ from django.shortcuts import render, redirect
 
 from courses.models import Course, UserAnswer, Section, Question
 from courses.forms import CourseForm
+from courses.serializers import SectionSerializer
+from rest_framework import viewsets
+from rest_framework.decorators import detail_route
+from rest_framework.response import Response
 
 
 class CourseDetailView(DetailView):
@@ -32,6 +36,11 @@ class CourseAddView(CreateView):
 course_add = CourseAddView.as_view()
 
 
+def is_authenticated(request):
+    if not request.user.is_authenticated():
+        raise PermissionDenied
+
+
 def do_section(request, section_id):
     section = Section.objects.get(id=section_id)
     return render(request, 'courses/do_section.html', {
@@ -40,8 +49,7 @@ def do_section(request, section_id):
 
 
 def do_test(request, section_id):
-    if not request.user.is_authenticated():
-        raise PermissionDenied
+    is_authenticated(request)
     section = Section.objects.get(id=section_id)
     if request.method == 'POST':
         data = {}
@@ -85,10 +93,40 @@ def calculate_score(user, section):
 
 
 def show_results(request, section_id):
-    if not request.user.is_authenticated():
-        raise PermissionDenied
+    is_authenticated(request)
     section = Section.objects.get(id=section_id)
     return render(request, 'courses/show_results.html', {
         'section': section,
         'score': calculate_score(request.user, section)
     })
+
+
+class SectionViewSet(viewsets.ModelViewSet):
+    queryset = Section.objects.all()
+    serializer_class = SectionSerializer
+
+    @detail_route(methods=['GET', ])
+    def questions(self, request, *args, **kwargs):
+        section = self.get_object()
+        data = []
+        for question in section.question_set.all():
+            question_data = {'id': question.id, 'answers': []}
+            for answer in question.answer_set.all():
+                answer_data = {'id': answer.id, 'text': str(answer), }
+                question_data['answers'].append(answer_data)
+            data.append(question_data)
+        return Response(data)
+
+    @detail_route(methods=['PUT', ])
+    def test(self, request, *args, **kwargs):
+        is_authenticated(request)
+        section = self.get_object()
+        perform_test(request.user, request.data, section)
+        return Response()
+
+    @detail_route(methods=['GET', ])
+    def result(self, request, *args, **kwargs):
+        is_authenticated(request)
+        return Response({
+            'score': calculate_score(request.user, self.get_object())
+        })
