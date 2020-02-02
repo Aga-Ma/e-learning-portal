@@ -37,7 +37,7 @@ course_add = CourseAddView.as_view()
 
 
 def is_authenticated(request):
-    if not request.user.is_authenticated():
+    if not request.user.is_authenticated:
         raise PermissionDenied
 
 
