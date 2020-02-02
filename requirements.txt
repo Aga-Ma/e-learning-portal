@@ -3,7 +3,11 @@ certifi==2018.1.18
 chardet==3.0.4
 colorama==0.4.3
 Django==2.1.4
+<<<<<<< HEAD
 djangorestframework==3.9.1
+=======
+djangorestframework==3.7.7
+>>>>>>> f0d833f99bf65b2339681736d884e80e997eeda7
 httpie==1.0.3
 idna==2.6
 Pygments==2.2.0
