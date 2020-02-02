@@ -30,7 +30,7 @@ router.register(r'sections', SectionViewSet)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url('^', include('django.contrib.auth.urls', namespace='auth')),
+    url('^', include(('django.contrib.auth.urls', 'user'), namespace='auth')),
     url(r'^course_detail/(?P<pk>\d+)/$', course_detail,
         name='course_detail'),
     url(r'^course_add/$', course_add, name='course_add'),
