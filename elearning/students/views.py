@@ -16,7 +16,7 @@ def get_all_scores_for_user(user):
 
 
 def student_detail(request):
-    if not request.user.is_authenticated():
+    if not request.user.is_authenticated:
         raise PermissionDenied
     student = request.user
     return render(request, 'students/student_detail.html', {
