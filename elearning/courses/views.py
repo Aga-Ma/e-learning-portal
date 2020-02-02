@@ -1,5 +1,5 @@
 from django.core.exceptions import PermissionDenied, SuspiciousOperation
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.db import transaction
 from django.http import HttpResponseRedirect
 from django.views.generic import DetailView, CreateView, ListView
