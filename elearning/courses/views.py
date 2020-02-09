@@ -9,7 +9,7 @@ from courses.models import Course, UserAnswer, Section, Question
 from courses.forms import CourseForm
 from courses.serializers import SectionSerializer
 from rest_framework import viewsets
-from rest_framework.decorators import detail_route
+from rest_framework.decorators import action
 from rest_framework.response import Response
 
 
@@ -105,7 +105,7 @@ class SectionViewSet(viewsets.ModelViewSet):
     queryset = Section.objects.all()
     serializer_class = SectionSerializer
 
-    @detail_route(methods=['GET', ])
+    @action(detail=True, methods=['get'])
     def questions(self, request, *args, **kwargs):
         section = self.get_object()
         data = []
@@ -117,14 +117,14 @@ class SectionViewSet(viewsets.ModelViewSet):
             data.append(question_data)
         return Response(data)
 
-    @detail_route(methods=['PUT', ])
+    @action(detail=True, methods=['put'])
     def test(self, request, *args, **kwargs):
         is_authenticated(request)
         section = self.get_object()
         perform_test(request.user, request.data, section)
         return Response()
 
-    @detail_route(methods=['GET', ])
+    @action(detail=True, methods=['get'])
     def result(self, request, *args, **kwargs):
         is_authenticated(request)
         return Response({
