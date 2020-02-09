@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 
+{% block breadcrumb %}
+    <li class="breadcrumb-item active">Your results</li>
+{% endblock %}
 
 {% block "content" %}
-<h1>Your results</h1>
 
 <p>You scored {{ score }}%</p>
 

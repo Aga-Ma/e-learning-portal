@@ -1,12 +1,13 @@
 {% extends "base.html" %}
 
+{% block breadcrumb %}
+    <li class="breadcrumb-item active">{{ course.name }} course details</li>
+{% endblock %}
 
 {% block "content" %}
 <div class="container">
   <div class="row">
     <div class="col-xs-12">
-      <h1> Course detail </h1>
-      <p>{{ course.name }}</p>
       <ul>
         {% for section in course.section_set.all %}
         <li><a href="{{ section.get_absolute_url }}">{{ section }}</a></li>

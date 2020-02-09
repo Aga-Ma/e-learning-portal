@@ -1,11 +1,10 @@
 {% extends "base.html" %}
 
+{% block breadcrumb %}
+    <li class="breadcrumb-item active">Test for section {{ section.number }}: {{ section.title }}</li>
+{% endblock %}
 
 {% block "content" %}
-<p>Test for section {{ section.number }}: {{ section.title }} </p>
-
-<hr/>
-
 <form action="" method="POST">
   {% csrf_token %}
   {% for question in section.question_set.all %}
