@@ -1,18 +1,18 @@
 {% extends "base.html" %}
 
+{% block breadcrumb %}
+<li class="breadcrumb-item active">Student detail: {{ student }}</li>
+{% endblock %}
+
 {% block "content" %}
-    <h1>Student detail</h1>
-
-    <p>{{ student }}</p>
-
-    <ul>
-        {% for course, entries in scores %}
-        <li>{{ course }}</li>
-        <ul>
-            {% for section, score in entries %}
-            <li>{{ section }}: {{ score }}</li>
-            {% endfor %}
-        </ul>
-        {% endfor %}
-    </ul>
+<ul>
+  {% for course, entries in scores %}
+  <li>{{ course }}</li>
+  <ul>
+    {% for section, score in entries %}
+    <li>{{ section }}: {{ score }}</li>
+    {% endfor %}
+  </ul>
+  {% endfor %}
+</ul>
 {% endblock %}
