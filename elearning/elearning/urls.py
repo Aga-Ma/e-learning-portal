@@ -18,11 +18,9 @@ from django.contrib import admin
 
 from rest_framework import routers
 
-from accounts.views import signup
-from students.views import student_detail
+from students.views import signup, student_detail
 from courses.views import course_detail, course_list, course_add, do_section, do_test, show_results, SectionViewSet
 from api.views import UserViewSet
-
 
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)

@@ -1,8 +1,23 @@
+from django.contrib.auth import login
 from django.core.exceptions import PermissionDenied
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from courses.models import Course
 from courses.views import calculate_score
+
+from .forms import CustomUserCreationForm
+
+
+def signup(request):
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect('home')
+    else:
+        form = CustomUserCreationForm()
+    return render(request, 'students/signup.html', {'form': form})
 
 
 def get_all_scores_for_user(user):

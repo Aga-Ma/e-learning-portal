@@ -8,21 +8,28 @@
   <title>Django E-learning</title>
   <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
 </head>
+
 <body>
+
+{% block body %}
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
     <a class="navbar-brand" href="{% url 'home' %}">E-learning portal</a>
-  </div>
-  <div class="container">
-    <div class="row">
-      <div class="col-xs-12">
-        {% if request.user.is_authenticated %}
-        <p>Logged in as <a href="{% url 'student_detail' %}">{{ request.user.username }}</a>
-          (<a href="{% url 'auth:logout' %}">Logout</a>)</p>
-        {% else %}
-        <p><a href="{% url 'auth:login' %}">Login</a></p>
-        {% endif %}
-      </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainMenu" aria-controls="mainMenu"
+            aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainMenu">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          {% if request.user.is_authenticated %}
+          <p>Logged in as <a class="nav-link" href="#">{{ user.username }}</a>
+            (<a href="{% url 'auth:logout' %}">Logout</a>)</p>
+          {% else %}
+          <p><a href="{% url 'auth:login' %}">Login</a></p>
+          {% endif %}
+        </li>
+      </ul>
     </div>
   </div>
 </nav>
@@ -32,12 +39,11 @@
     {% block breadcrumb %}
     {% endblock %}
   </ol>
+  {% block content %}
+  {% endblock %}
 </div>
 
-{% block "content" %}
-
-{% endblock %}
-
 <script src="{% static 'jquesry-1.12.4.min.js' %}"></script>
+{% endblock body %}
 </body>
 </html>
