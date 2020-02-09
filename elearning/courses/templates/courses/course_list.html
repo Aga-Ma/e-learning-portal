@@ -2,20 +2,20 @@
 
 {% block "content" %}
 <div class="container">
-    <div class="row">
-        <div class="col-xs-12">
-            <h1> Course list </h1>
-            <ol>
-                {% for course in course_list %}
-                <li><a href="{{ course.get_absolute_url }}">{{ course.name }}</a></li>
-                <ul>
-                    {% for student in course.students.all %}
-                    <li>{{ student }}</li>
-                    {% endfor %}
-                </ul>
-                {% endfor %}
-            </ol>
-        </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <h1> Course list </h1>
+      <ol>
+        {% for course in course_list %}
+        <li><a href="{{ course.get_absolute_url }}">{{ course.name }}</a></li>
+        <ul>
+          {% for student in course.students.all %}
+          <li>{{ student }}</li>
+          {% endfor %}
+        </ul>
+        {% endfor %}
+      </ol>
     </div>
+  </div>
 </div>
 {% endblock %}

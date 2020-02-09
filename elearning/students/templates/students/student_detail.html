@@ -1,14 +1,18 @@
-<h1>Student detail</h1>
+{% extends "base.html" %}
 
-<p>{{ student }}</p>
+{% block "content" %}
+    <h1>Student detail</h1>
 
-<ul>
-    {% for course, entries in scores %}
-    <li>{{ course }}</li>
+    <p>{{ student }}</p>
+
     <ul>
-        {% for section, score in entries %}
-        <li>{{ section }}: {{ score }}</li>
+        {% for course, entries in scores %}
+        <li>{{ course }}</li>
+        <ul>
+            {% for section, score in entries %}
+            <li>{{ section }}: {{ score }}</li>
+            {% endfor %}
+        </ul>
         {% endfor %}
     </ul>
-    {% endfor %}
-</ul>
+{% endblock %}

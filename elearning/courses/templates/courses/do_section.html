@@ -1,7 +1,11 @@
+{% extends "base.html" %}
+
+{% block "content" %}
 <p>Section {{ section.number }}: {{ section.title }} </p>
 
 <p>
-{{ section.text }}
+  {{ section.text }}
 </p>
 
 <p><a href="{{ section.get_test_url }}">Take the test</a></p>
+{% endblock %}
