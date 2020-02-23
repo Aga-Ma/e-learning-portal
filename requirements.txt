@@ -5,6 +5,7 @@ colorama==0.4.3
 dj-database-url==0.5.0
 Django==3.0.3
 djangorestframework==3.11.0
+django-widget-tweaks==1.4.5
 httpie==1.0.3
 idna==2.6
 Pygments==2.3.1
