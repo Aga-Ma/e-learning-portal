@@ -8,6 +8,7 @@ djangorestframework==3.11.0
 django-widget-tweaks==1.4.5
 httpie==1.0.3
 idna==2.6
+psycopg2==2.8.4
 Pygments==2.3.1
 python-decouple==3.3
 pytz==2017.3
