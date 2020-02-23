@@ -2,11 +2,13 @@ asgiref==3.2.3
 certifi==2018.1.18
 chardet==3.0.4
 colorama==0.4.3
+dj-database-url==0.5.0
 Django==3.0.3
 djangorestframework==3.11.0
 httpie==1.0.3
 idna==2.6
 Pygments==2.3.1
+python-decouple==3.3
 pytz==2017.3
 requests==2.21.0
 sqlparse==0.3.0
