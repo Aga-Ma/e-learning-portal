@@ -28,6 +28,7 @@ router.register(r'sections', SectionViewSet)
 
 
 urlpatterns = [
+    re_path(r'^$', course_list, name='home'),
     re_path(r'^admin/', admin.site.urls),
     re_path(r'^signup/$', signup, name='signup'),
     re_path('^', include(('django.contrib.auth.urls', 'user'), namespace='auth')),
@@ -38,5 +39,4 @@ urlpatterns = [
     re_path(r'^section/(?P<section_id>\d+)/results/$', show_results, name='show_results'),
     re_path(r'^student_detail/$', student_detail, name='student_detail'),
     re_path(r'^api/', include(router.urls)),
-    re_path(r'^$', course_list, name='home'),
 ]
