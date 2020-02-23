@@ -21,7 +21,7 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
-    'elearningtestportal.herokuapp.com']
+    'elearningportal.herokuapp.com']
 
 # Application definition
 
