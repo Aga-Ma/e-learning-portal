@@ -10,7 +10,7 @@ gunicorn==20.0.4
 httpie==1.0.3
 idna==2.6
 psycopg2==2.8.4
-Pygments==2.3.1
+Pygments==2.7.4
 python-decouple==3.3
 pytz==2017.3
 requests==2.21.0
